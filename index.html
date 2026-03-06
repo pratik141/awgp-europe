@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWGP Europe - All World Gayatri Pariwar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        saffron: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Open+Sans:wght@400;600&display=swap');
+        body { font-family: 'Open Sans', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Merriweather', serif; }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1582622791485-8015383f9e9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-saffron-100 rounded-full flex items-center justify-center text-saffron-600">
+                        <i data-lucide="sun" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-xl text-saffron-700 uppercase tracking-wide">AWGP Europe</h1>
+                        <p class="text-xs text-slate-500 font-semibold uppercase">All World Gayatri Pariwar</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="https://www.awgpeurope.org/en/" class="text-slate-600 hover:text-saffron-600 font-semibold transition">Home</a>
+                    <a href="https://www.awgpeurope.org/en/about-us" class="text-slate-600 hover:text-saffron-600 font-semibold transition">About Us</a>
+                    <a href="https://www.awgpeurope.org/en/activities" class="text-slate-600 hover:text-saffron-600 font-semibold transition">Activities</a>
+                    <a href="https://www.awgpeurope.org/en/literature" class="text-slate-600 hover:text-saffron-600 font-semibold transition">Literature</a>
+                    <a href="https://www.awgpeurope.org/en/contact" class="text-slate-600 hover:text-saffron-600 font-semibold transition">Contact</a>
+                </nav>
+                <button class="md:hidden text-slate-600">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg text-white py-24 px-4 sm:px-6 lg:px-8 text-center">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 serif leading-tight">Awakening Divinity in Human Beings</h2>
+            <p class="text-lg md:text-xl mb-8 text-slate-200">Descent of Heavenly Atmosphere on Earth. Join our global mission of spiritual and social transformation.</p>
+            <div class="bg-white/10 p-6 rounded-lg backdrop-blur-sm border border-white/20 inline-block text-left">
+                <p class="italic text-saffron-100 mb-2 font-semibold">The Gayatri Mantra:</p>
+                <p class="serif text-lg leading-relaxed">Om Bhur Bhuvaḥ Swaḥ<br>Tat-savitur Vareñyaṃ<br>Bhargo Devasya Dhīmahi<br>Dhiyo Yonaḥ Prachodayāt</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Updates Section (Dynamically Loaded) -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
+        <div class="flex items-center justify-between mb-10">
+            <h3 class="text-3xl font-bold text-slate-800 serif border-l-4 border-saffron-500 pl-4">Recent Updates</h3>
+            <a href="https://www.awgp.org/en/" target="_blank" class="text-saffron-600 font-semibold hover:underline flex items-center gap-1">
+                View Parent Site <i data-lucide="external-link" class="w-4 h-4"></i>
+            </a>
+        </div>
+
+        <div id="loading-state" class="text-center py-12 text-slate-500">
+            <i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto mb-4 text-saffron-500"></i>
+            <p>Loading latest updates...</p>
+        </div>
+
+        <div id="updates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
+            <!-- Updates will be injected here by JavaScript -->
+        </div>
+
+        <div id="error-state" class="hidden text-center py-12 bg-red-50 text-red-600 rounded-lg border border-red-100">
+            <i data-lucide="alert-circle" class="w-8 h-8 mx-auto mb-2"></i>
+            <p>Unable to load updates at this time. Please check the parent site.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t-4 border-saffron-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="text-white text-lg font-bold mb-4 uppercase tracking-wider">About AWGP Europe</h4>
+                <p class="text-sm leading-relaxed">All World Gayatri Pariwar is a socio-spiritual organization founded by Pt. Shriram Sharma Acharya, dedicated to the upliftment of human consciousness.</p>
+            </div>
+            <div>
+                <h4 class="text-white text-lg font-bold mb-4 uppercase tracking-wider">Quick Links</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-saffron-500 transition">Shantikunj Haridwar</a></li>
+                    <li><a href="#" class="hover:text-saffron-500 transition">Brahmavarchas Shodh Sansthan</a></li>
+                    <li><a href="#" class="hover:text-saffron-500 transition">Dev Sanskriti Vishwavidyalaya</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-lg font-bold mb-4 uppercase tracking-wider">Connect</h4>
+                <p class="text-sm mb-4">European chapter synchronizing updates from the main AWGP portal.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-saffron-600 hover:text-white transition"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-saffron-600 hover:text-white transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-saffron-600 hover:text-white transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-slate-800 text-sm text-center">
+            &copy; <span id="year"></span> All World Gayatri Pariwar Europe. This is a community-maintained site.
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Fetch and render updates
+        async function loadUpdates() {
+            const loadingState = document.getElementById('loading-state');
+            const updatesGrid = document.getElementById('updates-grid');
+            const errorState = document.getElementById('error-state');
+
+            try {
+                let updates = [];
+                try {
+                    const response = await fetch(`updates.json?t=${new Date().getTime()}`);
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    updates = await response.json();
+                } catch (fetchError) {
+                    console.warn("Fetch failed (likely in preview mode), using fallback mock data:", fetchError);
+                    // Fallback data so the preview looks nice in the editor
+                    updates = [
+                      {
+                        "id": "1",
+                        "title": "Welcome to the new AWGP Europe Site (Preview)",
+                        "date": new Date().toISOString(),
+                        "content": "This is our new localized portal. We will be syndicating important updates, literature releases, and global event announcements from Shantikunj Haridwar right here. (Note: This is preview mock data because the JSON file is not present in this environment)."
+                      },
+                      {
+                        "id": "2",
+                        "title": "Ashwamedha Yagya Preparations",
+                        "date": new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+                        "content": "Global preparations for the upcoming Ashwamedha Yagya are in full swing. Volunteers across all chapters are encouraged to participate in local awareness campaigns."
+                      }
+                    ];
+                }
+                
+                loadingState.classList.add('hidden');
+                updatesGrid.classList.remove('hidden');
+
+                if (updates.length === 0) {
+                    updatesGrid.innerHTML = '<p class="col-span-full text-center text-slate-500">No recent updates available.</p>';
+                    return;
+                }
+
+                updates.forEach(update => {
+                    // Create card element
+                    const card = document.createElement('div');
+                    card.className = 'bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col';
+                    
+                    // Format Date
+                    const dateObj = new Date(update.date);
+                    const formattedDate = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+                    // Format Content (convert basic newlines to HTML breaks if needed, or truncate)
+                    const truncatedContent = update.content.length > 150 ? update.content.substring(0, 150) + '...' : update.content;
+
+                    card.innerHTML = `
+                        <div class="p-6 flex-grow flex flex-col">
+                            <div class="flex items-center gap-2 text-saffron-600 text-sm font-semibold mb-3">
+                                <i data-lucide="calendar" class="w-4 h-4"></i>
+                                ${formattedDate}
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-800 mb-3 serif leading-snug">${update.title}</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4 flex-grow">${truncatedContent}</p>
+                            <button onclick="readMore('${update.id}')" class="text-saffron-600 font-semibold text-sm hover:text-saffron-700 mt-auto flex items-center gap-1 w-max group">
+                                Read Full Update 
+                                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                            </button>
+                        </div>
+                    `;
+                    updatesGrid.appendChild(card);
+                });
+
+                // Re-initialize icons for newly added HTML
+                lucide.createIcons();
+
+            } catch (error) {
+                console.error("Failed to load updates:", error);
+                loadingState.classList.add('hidden');
+                errorState.classList.remove('hidden');
+            }
+        }
+
+        // Simple function to simulate reading full article
+        function readMore(id) {
+            // In a full app, this would open a modal or navigate to a new page.
+            // For now, we'll direct them to the parent site as requested.
+            window.open('https://www.awgpeurope.org/en/', '_blank');
+        }
+
+        // Start loading on page load
+        window.addEventListener('DOMContentLoaded', loadUpdates);
+    </script>
+</body>
+</html>
