@@ -76,15 +76,15 @@
     <!-- Recent Updates Section (Dynamically Loaded) -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
         <div class="flex items-center justify-between mb-10">
-            <h3 class="text-3xl font-bold text-slate-800 serif border-l-4 border-saffron-500 pl-4">Recent Updates</h3>
-            <a href="https://www.awgp.org/en/" target="_blank" class="text-saffron-600 font-semibold hover:underline flex items-center gap-1">
-                View Parent Site <i data-lucide="external-link" class="w-4 h-4"></i>
+            <h3 class="text-3xl font-bold text-slate-800 serif border-l-4 border-saffron-500 pl-4">Recent Blogs & Updates</h3>
+            <a href="https://www.awgp.org/en/news/" target="_blank" class="text-saffron-600 font-semibold hover:underline flex items-center gap-1">
+                View All News <i data-lucide="external-link" class="w-4 h-4"></i>
             </a>
         </div>
 
         <div id="loading-state" class="text-center py-12 text-slate-500">
             <i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto mb-4 text-saffron-500"></i>
-            <p>Loading latest updates...</p>
+            <p>Loading local updates and live global news...</p>
         </div>
 
         <div id="updates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
@@ -93,7 +93,7 @@
 
         <div id="error-state" class="hidden text-center py-12 bg-red-50 text-red-600 rounded-lg border border-red-100">
             <i data-lucide="alert-circle" class="w-8 h-8 mx-auto mb-2"></i>
-            <p>Unable to load updates at this time. Please check the parent site.</p>
+            <p>Unable to load news at this time. Please check the parent site.</p>
         </div>
     </main>
 
@@ -132,57 +132,70 @@
         lucide.createIcons();
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Real-time live data cache (March 2026) to act as a robust fallback
-        // if the DOM structure of awgp.org changes or blocks the proxy
-        const liveNewsCache = [
+        // Fallback mock data for the Canvas preview environment where the json file isn't present
+        // and if the proxy scraper fails
+        const previewCache = [
             {
                 id: "1",
-                title: "देव संस्कृति विश्वविद्यालय में 'उत्सव-2026...",
-                date: "March 5, 2026",
-                content: "हरिद्वार। Dev Sanskriti Vishwavidyalaya में आयोजित वार्षिक युवा महोत्सव Utsav 2026 का वातावरण उत्साह, ऊर्जा और रचनात्मकता से सराबोर रहा। विश्वविद्यालय परिसर में आयोजित इस कार्यक्रम में विद्यार्थियों ने खेलकूद और सांस्कृतिक प्रतियोगिताओं में बढ़-चढ़कर भाग लिया...",
-                url: "https://www.awgp.org/en/"
+                title: "विज्ञान को शैतान बनने से रोकें: अनियंत्रित तकनीक...",
+                date: "March 6, 2026",
+                content: "सामान्य व्यक्ति का मस्तिष्क विकृत हो तो वह थोड़े ही व्यक्तियों का अहित कर सकता है। उसी तरह की दुर्बुद्धि वाले लोगों का एक समूह निकल पड़े, तो हानि की सँभावनाएँ निश्चित बढ़ती हैं...",
+                url: "https://www.awgp.org/en/news/",
+                type: "Global News",
+                icon: "globe"
             },
             {
                 id: "2",
-                title: "Global Spiritual Solidarity: Respected Dr. Chinmay Pandya...",
-                date: "March 3, 2026",
-                content: "At Dev Sanskriti Vishwavidyalaya, we take pride in the global spiritual outreach led by Respected Dr. Chinmay Pandya. In a meaningful virtual interaction, Respected Dr. Chinmay Pandya connected with over 100 Gayatri Parivar families from the UAE, Oman, Bahrain, Qatar, and Kuwait...",
-                url: "https://www.awgp.org/en/"
+                title: "अपनों से अपनी बात- होली का संदेश",
+                date: "March 6, 2026",
+                content: "होली विशेषांक— 3 मातृभूमि की धूलि मस्तक पर लगाकर देशभक्ति की प्रतिज्ञा लेने का महापर्व है— होली। यह असमानता के अभिशाप को जला देने का पर्व भी है...",
+                url: "https://www.awgp.org/en/news/",
+                type: "Global News",
+                icon: "globe"
             },
             {
                 id: "3",
-                title: "गायत्री-तीर्थ शांतिकुंज एवं देव संस्कृति...",
-                date: "March 3, 2026",
-                content: "गायत्री-तीर्थ शांतिकुंज एवं देव संस्कृति विश्वविद्यालय परिसर में परंपरागत श्रद्धा, साधना और आध्यात्मिक वातावरण के बीच होलिका दहन का पावन कार्यक्रम श्रद्धापूर्वक संपन्न हुआ। इस अवसर पर बड़ी संख्या में साधक, कार्यकर्ता एवं श्रद्धालु उपस्थित रहे...",
-                url: "https://www.awgp.org/en/"
-            },
-            {
-                id: "4",
-                title: "भारतीय ज्ञान परंपरा के वैश्विक पुनर्जागर...",
-                date: "March 3, 2026",
-                content: "'इंडियन नॉलेज सिस्टम्स (IKS)' 7-दिवसीय कार्यशाला का शुभारंभ देव संस्कृति विश्वविद्यालय में 1 से 7 मार्च 2026 तक आयोजित 'इंडियन नॉलेज सिस्टम्स (IKS)' विषयक 7-दिवसीय आवासीय कार्यशाला का आज विधिवत शुभारंभ...",
-                url: "https://www.awgp.org/en/"
-            },
-            {
-                id: "5",
-                title: "Students of Sant Gadge Baba Amravati Uni...",
-                date: "Feb 27, 2026",
-                content: "Students of Sant Gadge Baba Amravati University (Maharashtra) took an educational tour in the divine and inspiring campus of Dev Sanskriti University. On this occasion, students got a closer look at the university's valuable education system...",
-                url: "https://www.awgp.org/en/"
+                title: "हमारी वसीयत और विरासत (भाग 151): जीवन के...",
+                date: "March 6, 2026",
+                content: "इन आंदोलनों के एक लाख गाँवों में विस्तार हेतु शान्तिकुञ्ज ने पहला कदम बढ़ाया है। इसके लिए संचालनकेंद्रों की स्थापना की गई है...",
+                url: "https://www.awgp.org/en/news/",
+                type: "Global News",
+                icon: "globe"
             }
         ];
 
-        // Fetch and render updates directly from parent site using CORS proxy
+        // Fetch and render blogs/news directly from both local JSON and the CORS proxy
         async function loadUpdates() {
             const loadingState = document.getElementById('loading-state');
             const updatesGrid = document.getElementById('updates-grid');
             const errorState = document.getElementById('error-state');
             
-            let updates = [];
+            let allUpdates = [];
 
+            // 1. Fetch Local Updates (updates.json)
             try {
-                // We use AllOrigins to bypass the strict CORS policy on awgp.org
-                const targetUrl = encodeURIComponent('https://www.awgp.org/en/');
+                const localUrl = new URL(`updates.json?t=${new Date().getTime()}`, window.location.href);
+                const localResponse = await fetch(localUrl);
+                
+                if (localResponse.ok) {
+                    const localData = await localResponse.json();
+                    // Tag local updates
+                    const formattedLocal = localData.map(item => ({
+                        ...item,
+                        type: 'Local Update',
+                        icon: 'map-pin',
+                        url: item.url || '#' // Fallback URL if none provided locally
+                    }));
+                    allUpdates = allUpdates.concat(formattedLocal);
+                }
+            } catch (error) {
+                console.warn("Local updates.json not found (Preview mode). Skipping local updates.", error);
+            }
+
+            // 2. Fetch Live Global News via Proxy
+            let liveNews = [];
+            try {
+                const targetUrl = encodeURIComponent('https://www.awgp.org/en/news');
                 const proxyUrl = `https://api.allorigins.win/get?url=${targetUrl}`;
                 
                 const response = await fetch(proxyUrl);
@@ -190,81 +203,91 @@
                 
                 const data = await response.json();
                 
-                // Parse the retrieved HTML string into an actual DOM we can navigate
+                // Parse HTML
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(data.contents, 'text/html');
                 
-                // Try to find the news wrapper. (Heuristic scraping)
-                // Looks for elements containing the text 'Recent News' and crawls downwards
-                const headings = Array.from(doc.querySelectorAll('h1, h2, h3, h4'));
-                const recentNewsHeading = headings.find(h => h.textContent.includes('Recent News'));
-                
-                if (recentNewsHeading) {
-                    // Start looking for news items near the heading
-                    let container = recentNewsHeading.parentElement;
-                    while(container && container.querySelectorAll('a').length < 3) {
-                        container = container.parentElement; // Walk up to find the main container
-                    }
-                    
-                    if (container) {
-                        // Extract basic structures (this is highly dependent on their CMS)
-                        const items = container.querySelectorAll('a'); 
-                        let count = 0;
-                        items.forEach((item, index) => {
-                            // Deduplicate and ensure there's text
-                            if (item.innerText.length > 50 && count < 6) { 
-                                const lines = item.innerText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-                                if(lines.length >= 2) {
-                                    updates.push({
-                                        id: index.toString(),
-                                        title: lines[0].substring(0, 60) + '...',
-                                        date: lines.length > 2 ? lines[lines.length-1] : "Recent",
-                                        content: lines[1],
-                                        url: item.href.startsWith('http') ? item.href : `https://www.awgp.org${item.getAttribute('href')}`
-                                    });
-                                    count++;
-                                }
+                // Scrape Heuristic
+                const items = doc.querySelectorAll('a');
+                let count = 0;
+
+                items.forEach((item, index) => {
+                    const text = item.innerText.trim();
+                    // Identify substantial news items and avoid navbars/footers
+                    if (text.length > 50 && count < 6 && !item.closest('nav') && !item.closest('footer')) {
+                        const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                        
+                        if(lines.length >= 2) {
+                            let dateStr = "Recent";
+                            // Try to extract date from text
+                            const dateRegex = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2}, \d{4}/i;
+                            const match = text.match(dateRegex);
+                            if (match) {
+                                dateStr = match[0];
+                            } else if (lines.length > 2) {
+                                dateStr = lines[lines.length - 1]; // Use last line as fallback date
                             }
-                        });
+
+                            // Avoid duplicates
+                            if (!liveNews.find(n => n.title.includes(lines[0].substring(0, 30)))) {
+                                liveNews.push({
+                                    id: 'live-' + index,
+                                    title: lines[0].substring(0, 60) + (lines[0].length > 60 ? '...' : ''),
+                                    date: dateStr,
+                                    content: lines[1],
+                                    url: item.href.startsWith('http') ? item.href : `https://www.awgp.org${item.getAttribute('href')}`,
+                                    type: 'Global News',
+                                    icon: 'globe'
+                                });
+                                count++;
+                            }
+                        }
                     }
+                });
+
+                if (liveNews.length === 0) {
+                    throw new Error("Scraping completed but no specific news structure was found.");
                 }
 
-                // If scraping failed to find items due to DOM changes, use our live cache
-                if (updates.length === 0) {
-                    console.log("DOM parsing didn't find specific news nodes, falling back to recent live cache.");
-                    updates = liveNewsCache;
-                }
-
-            } catch (fetchError) {
-                console.warn("Live fetch failed, using fallback live data:", fetchError);
-                updates = liveNewsCache;
+            } catch (error) {
+                console.warn("Live fetch/scrape failed. Falling back to preview cache.", error);
+                liveNews = previewCache; // Use initial fallback cache
             }
+
+            // Merge local and live news
+            allUpdates = allUpdates.concat(liveNews);
             
             // Render the UI
             loadingState.classList.add('hidden');
             updatesGrid.classList.remove('hidden');
 
-            if (updates.length === 0) {
-                updatesGrid.innerHTML = '<p class="col-span-full text-center text-slate-500">No recent updates available at the moment.</p>';
+            if (allUpdates.length === 0) {
+                updatesGrid.innerHTML = '<p class="col-span-full text-center text-slate-500">No recent blogs or updates available at the moment.</p>';
                 return;
             }
 
-            updates.slice(0, 6).forEach(update => {
+            // Render up to 6 total items to keep the grid balanced
+            allUpdates.slice(0, 6).forEach(update => {
                 const card = document.createElement('div');
                 card.className = 'bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col';
                 
                 const truncatedContent = update.content.length > 150 ? update.content.substring(0, 150) + '...' : update.content;
+                const linkLabel = update.type === 'Local Update' ? 'Read More' : 'Read Full Post';
 
                 card.innerHTML = `
                     <div class="p-6 flex-grow flex flex-col">
-                        <div class="flex items-center gap-2 text-saffron-600 text-sm font-semibold mb-3">
-                            <i data-lucide="calendar" class="w-4 h-4"></i>
-                            ${update.date}
+                        <div class="flex items-center gap-2 text-saffron-600 text-xs font-semibold mb-3 tracking-wide uppercase">
+                            <span class="bg-saffron-50 text-saffron-700 px-2 py-1 rounded flex items-center gap-1 border border-saffron-100">
+                                <i data-lucide="${update.icon}" class="w-3 h-3"></i>
+                                ${update.type}
+                            </span>
+                            <span class="text-slate-400">&bull;</span>
+                            <span class="text-slate-500 normal-case">${update.date}</span>
                         </div>
                         <h4 class="text-xl font-bold text-slate-800 mb-3 serif leading-snug">${update.title}</h4>
                         <p class="text-slate-600 text-sm leading-relaxed mb-4 flex-grow">${truncatedContent}</p>
                         <a href="${update.url}" target="_blank" class="text-saffron-600 font-semibold text-sm hover:text-saffron-700 mt-auto flex items-center gap-1 w-max group">
-                            Read Full Update 
+                            ${linkLabel} 
                             <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                         </a>
                     </div>
