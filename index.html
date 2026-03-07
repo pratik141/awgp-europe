@@ -61,39 +61,64 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-bg text-white py-24 px-4 sm:px-6 lg:px-8 text-center">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 serif leading-tight">Awakening Divinity in Human Beings</h2>
-            <p class="text-lg md:text-xl mb-8 text-slate-200">Descent of Heavenly Atmosphere on Earth. Join our global mission of spiritual and social transformation.</p>
-            <div class="bg-white/10 p-6 rounded-lg backdrop-blur-sm border border-white/20 inline-block text-left">
-                <p class="italic text-saffron-100 mb-2 font-semibold">The Gayatri Mantra:</p>
-                <p class="serif text-lg leading-relaxed">Om Bhur Bhuvaḥ Swaḥ<br>Tat-savitur Vareñyaṃ<br>Bhargo Devasya Dhīmahi<br>Dhiyo Yonaḥ Prachodayāt</p>
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+        
+        <!-- View 1: List View -->
+        <div id="list-view">
+            <!-- Hero Section (Only in list view) -->
+            <section class="hero-bg text-white py-20 px-6 text-center rounded-3xl overflow-hidden shadow-xl mb-16 relative">
+                <div class="relative z-10 max-w-3xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 serif leading-tight">Awakening Divinity in Human Beings</h2>
+                    <p class="text-lg md:text-xl mb-8 text-slate-200">Descent of Heavenly Atmosphere on Earth. Join our global mission of spiritual and social transformation.</p>
+                    <div class="bg-black/30 p-6 rounded-lg backdrop-blur-md border border-white/20 inline-block text-left">
+                        <p class="italic text-saffron-300 mb-2 font-semibold">The Gayatri Mantra:</p>
+                        <p class="serif text-lg leading-relaxed">Om Bhur Bhuvaḥ Swaḥ<br>Tat-savitur Vareñyaṃ<br>Bhargo Devasya Dhīmahi<br>Dhiyo Yonaḥ Prachodayāt</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="flex items-center justify-between mb-10">
+                <h3 class="text-3xl font-bold text-slate-800 serif border-l-4 border-saffron-500 pl-4">Recent Blogs & Updates</h3>
+                <a href="https://www.awgp.org/en/news/" target="_blank" class="text-saffron-600 font-semibold hover:underline flex items-center gap-1">
+                    View All News <i data-lucide="external-link" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div id="loading-state" class="text-center py-12 text-slate-500">
+                <i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto mb-4 text-saffron-500"></i>
+                <p>Loading local updates and live global news...</p>
+            </div>
+
+            <div id="updates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
+                <!-- Updates will be injected here by JavaScript -->
+            </div>
+
+            <div id="error-state" class="hidden text-center py-12 bg-red-50 text-red-600 rounded-lg border border-red-100">
+                <i data-lucide="alert-circle" class="w-8 h-8 mx-auto mb-2"></i>
+                <p>Unable to load news at this time. Please check the parent site.</p>
             </div>
         </div>
-    </section>
 
-    <!-- Recent Updates Section (Dynamically Loaded) -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
-        <div class="flex items-center justify-between mb-10">
-            <h3 class="text-3xl font-bold text-slate-800 serif border-l-4 border-saffron-500 pl-4">Recent Blogs & Updates</h3>
-            <a href="https://www.awgp.org/en/news/" target="_blank" class="text-saffron-600 font-semibold hover:underline flex items-center gap-1">
-                View All News <i data-lucide="external-link" class="w-4 h-4"></i>
-            </a>
-        </div>
-
-        <div id="loading-state" class="text-center py-12 text-slate-500">
-            <i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto mb-4 text-saffron-500"></i>
-            <p>Loading local updates and live global news...</p>
-        </div>
-
-        <div id="updates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
-            <!-- Updates will be injected here by JavaScript -->
-        </div>
-
-        <div id="error-state" class="hidden text-center py-12 bg-red-50 text-red-600 rounded-lg border border-red-100">
-            <i data-lucide="alert-circle" class="w-8 h-8 mx-auto mb-2"></i>
-            <p>Unable to load news at this time. Please check the parent site.</p>
+        <!-- View 2: Detailed Single Update View -->
+        <div id="detail-view" class="hidden max-w-4xl mx-auto">
+            <button onclick="window.location.hash = ''" class="mb-6 flex items-center gap-2 text-slate-500 hover:text-saffron-600 font-semibold transition bg-white px-4 py-2 rounded-lg shadow-sm w-max border border-slate-200">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Updates
+            </button>
+            <article class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <img id="detail-image" class="w-full h-64 md:h-96 object-cover hidden" src="" alt="Update Image">
+                <div class="p-8 md:p-12">
+                    <div class="flex items-center gap-3 text-saffron-600 text-sm font-semibold mb-6 tracking-wide uppercase">
+                        <span id="detail-type-badge" class="bg-saffron-50 text-saffron-700 px-3 py-1.5 rounded-md flex items-center gap-1.5 border border-saffron-100">
+                            <!-- Icon and type injected here -->
+                        </span>
+                        <span class="text-slate-300">&bull;</span>
+                        <span id="detail-date" class="text-slate-500 normal-case font-medium"></span>
+                    </div>
+                    <h2 id="detail-title" class="text-3xl md:text-4xl font-bold text-slate-800 mb-8 serif leading-tight"></h2>
+                    <div id="detail-content" class="text-slate-600 text-lg leading-relaxed whitespace-pre-wrap font-serif"></div>
+                </div>
+            </article>
         </div>
     </main>
 
@@ -132,11 +157,23 @@
         lucide.createIcons();
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Fallback mock data for the Canvas preview environment where the json file isn't present
-        // and if the proxy scraper fails
+        // Global store for all fetched updates to allow seamless routing
+        let globalUpdatesData = [];
+
+        // Fallback mock data with a simulated Issue ID local update
         const previewCache = [
             {
-                id: "1",
+                id: "105", // Simulated GitHub Issue ID
+                title: "Ashwamedha Yagya Preparations Begin in London",
+                date: "March 8, 2026",
+                content: "We are thrilled to announce that the global preparations for the upcoming Ashwamedha Yagya are in full swing across the UK and Europe.\n\nVolunteers across all chapters are encouraged to participate in local awareness campaigns. Please contact your local center coordinator for more detailed information and volunteer duty rosters.\n\nLet us make this a spiritually uplifting event for everyone involved.",
+                image: "https://images.unsplash.com/photo-1599587449553-909d7df9d2c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                url: "#",
+                type: "Local Update",
+                icon: "map-pin"
+            },
+            {
+                id: "live-1",
                 title: "विज्ञान को शैतान बनने से रोकें: अनियंत्रित तकनीक...",
                 date: "March 6, 2026",
                 content: "सामान्य व्यक्ति का मस्तिष्क विकृत हो तो वह थोड़े ही व्यक्तियों का अहित कर सकता है। उसी तरह की दुर्बुद्धि वाले लोगों का एक समूह निकल पड़े, तो हानि की सँभावनाएँ निश्चित बढ़ती हैं...",
@@ -145,19 +182,10 @@
                 icon: "globe"
             },
             {
-                id: "2",
+                id: "live-2",
                 title: "अपनों से अपनी बात- होली का संदेश",
                 date: "March 6, 2026",
                 content: "होली विशेषांक— 3 मातृभूमि की धूलि मस्तक पर लगाकर देशभक्ति की प्रतिज्ञा लेने का महापर्व है— होली। यह असमानता के अभिशाप को जला देने का पर्व भी है...",
-                url: "https://www.awgp.org/en/news/",
-                type: "Global News",
-                icon: "globe"
-            },
-            {
-                id: "3",
-                title: "हमारी वसीयत और विरासत (भाग 151): जीवन के...",
-                date: "March 6, 2026",
-                content: "इन आंदोलनों के एक लाख गाँवों में विस्तार हेतु शान्तिकुञ्ज ने पहला कदम बढ़ाया है। इसके लिए संचालनकेंद्रों की स्थापना की गई है...",
                 url: "https://www.awgp.org/en/news/",
                 type: "Global News",
                 icon: "globe"
@@ -165,9 +193,8 @@
         ];
 
         // Fetch and render blogs/news directly from both local JSON and the CORS proxy
-        async function loadUpdates() {
+        async function fetchAllUpdates() {
             const loadingState = document.getElementById('loading-state');
-            const updatesGrid = document.getElementById('updates-grid');
             const errorState = document.getElementById('error-state');
             
             let allUpdates = [];
@@ -179,12 +206,11 @@
                 
                 if (localResponse.ok) {
                     const localData = await localResponse.json();
-                    // Tag local updates
                     const formattedLocal = localData.map(item => ({
                         ...item,
                         type: 'Local Update',
                         icon: 'map-pin',
-                        url: item.url || '#' // Fallback URL if none provided locally
+                        url: item.url || '#' 
                     }));
                     allUpdates = allUpdates.concat(formattedLocal);
                 }
@@ -202,33 +228,22 @@
                 if (!response.ok) throw new Error('Proxy network response failed');
                 
                 const data = await response.json();
-                
-                // Parse HTML
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(data.contents, 'text/html');
-                
-                // Scrape Heuristic
                 const items = doc.querySelectorAll('a');
                 let count = 0;
 
                 items.forEach((item, index) => {
                     const text = item.innerText.trim();
-                    // Identify substantial news items and avoid navbars/footers
                     if (text.length > 50 && count < 6 && !item.closest('nav') && !item.closest('footer')) {
                         const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-                        
                         if(lines.length >= 2) {
                             let dateStr = "Recent";
-                            // Try to extract date from text
                             const dateRegex = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2}, \d{4}/i;
                             const match = text.match(dateRegex);
-                            if (match) {
-                                dateStr = match[0];
-                            } else if (lines.length > 2) {
-                                dateStr = lines[lines.length - 1]; // Use last line as fallback date
-                            }
+                            if (match) dateStr = match[0];
+                            else if (lines.length > 2) dateStr = lines[lines.length - 1]; 
 
-                            // Avoid duplicates
                             if (!liveNews.find(n => n.title.includes(lines[0].substring(0, 30)))) {
                                 liveNews.push({
                                     id: 'live-' + index,
@@ -245,62 +260,131 @@
                     }
                 });
 
-                if (liveNews.length === 0) {
-                    throw new Error("Scraping completed but no specific news structure was found.");
-                }
-
+                if (liveNews.length === 0) throw new Error("Scraping completed but no specific news structure was found.");
             } catch (error) {
                 console.warn("Live fetch/scrape failed. Falling back to preview cache.", error);
-                liveNews = previewCache; // Use initial fallback cache
+                liveNews = previewCache; 
             }
 
-            // Merge local and live news
-            allUpdates = allUpdates.concat(liveNews);
+            // Merge local and live news (Prioritize local to stay on top)
+            globalUpdatesData = allUpdates.concat(liveNews);
             
-            // Render the UI
-            loadingState.classList.add('hidden');
-            updatesGrid.classList.remove('hidden');
+            // If completely empty after both tries
+            if (globalUpdatesData.length === 0) {
+                globalUpdatesData = previewCache; // ultimate fallback
+            }
 
-            if (allUpdates.length === 0) {
-                updatesGrid.innerHTML = '<p class="col-span-full text-center text-slate-500">No recent blogs or updates available at the moment.</p>';
+            loadingState.classList.add('hidden');
+            
+            // Trigger routing to decide what view to show
+            handleRouting();
+        }
+
+        // --- Single Page Application Routing Logic ---
+        function handleRouting() {
+            const hash = window.location.hash;
+            
+            if (hash.startsWith('#update-')) {
+                const id = hash.replace('#update-', '');
+                showDetailView(id);
+            } else {
+                showListView();
+            }
+        }
+
+        function showListView() {
+            document.getElementById('detail-view').classList.add('hidden');
+            document.getElementById('list-view').classList.remove('hidden');
+            
+            const updatesGrid = document.getElementById('updates-grid');
+            updatesGrid.classList.remove('hidden');
+            
+            // Only render cards if not already rendered
+            if (updatesGrid.children.length === 0) {
+                globalUpdatesData.slice(0, 6).forEach(update => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col group';
+                    
+                    const truncatedContent = update.content.length > 150 ? update.content.substring(0, 150) + '...' : update.content;
+                    
+                    // Determine Link Target (Local opens internal detail view, Global opens external)
+                    const isLocal = update.type === 'Local Update';
+                    const linkUrl = isLocal ? `#update-${update.id}` : update.url;
+                    const linkTarget = isLocal ? '_self' : '_blank';
+                    const linkLabel = isLocal ? 'Read Full Update' : 'Read on AWGP.org';
+
+                    // Optional Image Preview for cards
+                    let imageHTML = '';
+                    if (update.image) {
+                        imageHTML = `<div class="h-48 overflow-hidden"><img src="${update.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Preview"></div>`;
+                    }
+
+                    card.innerHTML = `
+                        ${imageHTML}
+                        <div class="p-6 flex-grow flex flex-col">
+                            <div class="flex items-center gap-2 text-saffron-600 text-xs font-semibold mb-3 tracking-wide uppercase">
+                                <span class="bg-saffron-50 text-saffron-700 px-2 py-1 rounded flex items-center gap-1 border border-saffron-100">
+                                    <i data-lucide="${update.icon}" class="w-3 h-3"></i>
+                                    ${update.type}
+                                </span>
+                                <span class="text-slate-400">&bull;</span>
+                                <span class="text-slate-500 normal-case">${update.date}</span>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-800 mb-3 serif leading-snug">${update.title}</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4 flex-grow">${truncatedContent}</p>
+                            <a href="${linkUrl}" target="${linkTarget}" class="text-saffron-600 font-semibold text-sm hover:text-saffron-700 mt-auto flex items-center gap-1 w-max group-hover:underline">
+                                ${linkLabel} 
+                                <i data-lucide="arrow-right" class="w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    `;
+                    updatesGrid.appendChild(card);
+                });
+                lucide.createIcons();
+            }
+        }
+
+        function showDetailView(id) {
+            // Find the item
+            const update = globalUpdatesData.find(u => u.id === id);
+            
+            if (!update) {
+                // If ID is invalid, route back to home
+                window.location.hash = '';
                 return;
             }
 
-            // Render up to 6 total items to keep the grid balanced
-            allUpdates.slice(0, 6).forEach(update => {
-                const card = document.createElement('div');
-                card.className = 'bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col';
-                
-                const truncatedContent = update.content.length > 150 ? update.content.substring(0, 150) + '...' : update.content;
-                const linkLabel = update.type === 'Local Update' ? 'Read More' : 'Read Full Post';
+            // Hide list, show detail
+            document.getElementById('list-view').classList.add('hidden');
+            document.getElementById('detail-view').classList.remove('hidden');
+            window.scrollTo(0, 0);
 
-                card.innerHTML = `
-                    <div class="p-6 flex-grow flex flex-col">
-                        <div class="flex items-center gap-2 text-saffron-600 text-xs font-semibold mb-3 tracking-wide uppercase">
-                            <span class="bg-saffron-50 text-saffron-700 px-2 py-1 rounded flex items-center gap-1 border border-saffron-100">
-                                <i data-lucide="${update.icon}" class="w-3 h-3"></i>
-                                ${update.type}
-                            </span>
-                            <span class="text-slate-400">&bull;</span>
-                            <span class="text-slate-500 normal-case">${update.date}</span>
-                        </div>
-                        <h4 class="text-xl font-bold text-slate-800 mb-3 serif leading-snug">${update.title}</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4 flex-grow">${truncatedContent}</p>
-                        <a href="${update.url}" target="_blank" class="text-saffron-600 font-semibold text-sm hover:text-saffron-700 mt-auto flex items-center gap-1 w-max group">
-                            ${linkLabel} 
-                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                        </a>
-                    </div>
-                `;
-                updatesGrid.appendChild(card);
-            });
+            // Populate Data
+            document.getElementById('detail-title').innerText = update.title;
+            document.getElementById('detail-date').innerText = update.date;
+            document.getElementById('detail-content').innerText = update.content;
+            
+            const badge = document.getElementById('detail-type-badge');
+            badge.innerHTML = `<i data-lucide="${update.icon}" class="w-4 h-4"></i> ${update.type}`;
+            
+            const imgEl = document.getElementById('detail-image');
+            if (update.image && update.image.trim() !== '') {
+                imgEl.src = update.image;
+                imgEl.classList.remove('hidden');
+            } else {
+                imgEl.classList.add('hidden');
+                imgEl.src = '';
+            }
 
-            // Re-initialize icons for newly added HTML
+            // Re-render icons since we injected HTML into the badge
             lucide.createIcons();
         }
 
-        // Start loading on page load
-        window.addEventListener('DOMContentLoaded', loadUpdates);
+        // Listen for browser back/forward buttons (hash changes)
+        window.addEventListener('hashchange', handleRouting);
+
+        // Start initialization on load
+        window.addEventListener('DOMContentLoaded', fetchAllUpdates);
     </script>
 </body>
 </html>

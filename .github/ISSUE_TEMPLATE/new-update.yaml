@@ -1,0 +1,27 @@
+name: "Website Update"
+description: "Submit a new update/news for the website"
+title: "[Update] "
+labels: ["content-update"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: "Update Title"
+      placeholder: "e.g., New Literature Released"
+    validations:
+      required: true
+  - type: textarea
+    id: content
+    attributes:
+      label: "Full Content"
+      placeholder: "Type the full article or update here..."
+    validations:
+      required: true
+  - type: input
+    id: image
+    attributes:
+      label: "Image URL (Optional)"
+      placeholder: "e.g., https://example.com/photo.jpg"
+      description: "Provide a direct link to an image to show on the detail page."
+    validations:
+      required: false
