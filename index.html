@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class', // Enabled dark mode manually
             theme: {
                 extend: {
                     colors: {
@@ -31,32 +32,47 @@
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1582622791485-8015383f9e9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover;
         }
     </style>
+    <!-- Add script to prevent flash of wrong theme on load -->
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
-<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 flex flex-col min-h-screen transition-colors duration-300">
 
     <!-- Header -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <header class="bg-white dark:bg-slate-800 shadow-md sticky top-0 z-50 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 bg-saffron-100 rounded-full flex items-center justify-center text-saffron-600">
+                    <div class="w-12 h-12 bg-saffron-100 dark:bg-saffron-900/40 rounded-full flex items-center justify-center text-saffron-600 dark:text-saffron-500">
                         <i data-lucide="sun" class="w-8 h-8"></i>
                     </div>
                     <div>
-                        <h1 class="font-bold text-xl text-saffron-700 uppercase tracking-wide">AWGP Europe</h1>
-                        <p class="text-xs text-slate-500 font-semibold uppercase">All World Gayatri Pariwar</p>
+                        <h1 class="font-bold text-xl text-saffron-700 dark:text-saffron-500 uppercase tracking-wide">AWGP Europe</h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">All World Gayatri Pariwar</p>
                     </div>
                 </div>
                 <nav class="hidden md:flex space-x-8">
-                    <a href="https://www.awgpeurope.org/en/" class="text-slate-600 hover:text-saffron-600 font-semibold transition">Home</a>
-                    <a href="https://www.awgpeurope.org/en/about-us" class="text-slate-600 hover:text-saffron-600 font-semibold transition">About Us</a>
-                    <a href="https://www.awgpeurope.org/en/activities" class="text-slate-600 hover:text-saffron-600 font-semibold transition">Activities</a>
-                    <a href="https://www.awgpeurope.org/en/literature" class="text-slate-600 hover:text-saffron-600 font-semibold transition">Literature</a>
-                    <a href="https://www.awgpeurope.org/en/contact" class="text-slate-600 hover:text-saffron-600 font-semibold transition">Contact</a>
+                    <a href="https://www.awgpeurope.org/en/" class="text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Home</a>
+                    <a href="https://www.awgpeurope.org/en/about-us" class="text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">About Us</a>
+                    <a href="https://www.awgpeurope.org/en/activities" class="text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Activities</a>
+                    <a href="https://www.awgpeurope.org/en/literature" class="text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Literature</a>
+                    <a href="https://www.awgpeurope.org/en/contact" class="text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Contact</a>
                 </nav>
-                <button class="md:hidden text-slate-600">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
+                <div class="flex items-center gap-4">
+                    <!-- Dark Mode Toggle Button -->
+                    <button id="theme-toggle" class="text-slate-500 dark:text-slate-400 hover:text-saffron-600 dark:hover:text-saffron-400 focus:outline-none rounded-lg p-2 transition">
+                        <i id="theme-toggle-icon" data-lucide="moon" class="w-6 h-6"></i>
+                    </button>
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden text-slate-600 dark:text-slate-300 focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -79,13 +95,13 @@
             </section>
 
             <div class="flex items-center justify-between mb-10">
-                <h3 class="text-3xl font-bold text-slate-800 serif border-l-4 border-saffron-500 pl-4">Recent Blogs & Updates</h3>
-                <a href="https://www.awgp.org/en/news/" target="_blank" class="text-saffron-600 font-semibold hover:underline flex items-center gap-1">
+                <h3 class="text-3xl font-bold text-slate-800 dark:text-slate-100 serif border-l-4 border-saffron-500 pl-4 transition-colors">Recent Blogs & Updates</h3>
+                <a href="https://www.awgp.org/en/news/" target="_blank" class="text-saffron-600 dark:text-saffron-500 font-semibold hover:underline flex items-center gap-1">
                     View All News <i data-lucide="external-link" class="w-4 h-4"></i>
                 </a>
             </div>
 
-            <div id="loading-state" class="text-center py-12 text-slate-500">
+            <div id="loading-state" class="text-center py-12 text-slate-500 dark:text-slate-400">
                 <i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto mb-4 text-saffron-500"></i>
                 <p>Loading local updates and live global news...</p>
             </div>
@@ -94,7 +110,7 @@
                 <!-- Updates will be injected here by JavaScript -->
             </div>
 
-            <div id="error-state" class="hidden text-center py-12 bg-red-50 text-red-600 rounded-lg border border-red-100">
+            <div id="error-state" class="hidden text-center py-12 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg border border-red-100 dark:border-red-900/30">
                 <i data-lucide="alert-circle" class="w-8 h-8 mx-auto mb-2"></i>
                 <p>Unable to load news at this time. Please check the parent site.</p>
             </div>
@@ -102,23 +118,23 @@
 
         <!-- View 2: Detailed Single Update View -->
         <div id="detail-view" class="hidden max-w-4xl mx-auto">
-            <button onclick="window.location.hash = ''" class="mb-6 flex items-center gap-2 text-slate-500 hover:text-saffron-600 font-semibold transition bg-white px-4 py-2 rounded-lg shadow-sm w-max border border-slate-200">
+            <button onclick="window.location.hash = ''" class="mb-6 flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition bg-white dark:bg-slate-800 px-4 py-2 rounded-lg shadow-sm w-max border border-slate-200 dark:border-slate-700">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Updates
             </button>
-            <article class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <article class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden transition-colors duration-300">
                 <!-- Dynamic Multi-Image Gallery Container -->
                 <div id="detail-images-gallery" class="w-full hidden"></div>
                 
                 <div class="p-8 md:p-12">
-                    <div class="flex items-center gap-3 text-saffron-600 text-sm font-semibold mb-6 tracking-wide uppercase">
-                        <span id="detail-type-badge" class="bg-saffron-50 text-saffron-700 px-3 py-1.5 rounded-md flex items-center gap-1.5 border border-saffron-100">
+                    <div class="flex items-center gap-3 text-saffron-600 dark:text-saffron-500 text-sm font-semibold mb-6 tracking-wide uppercase">
+                        <span id="detail-type-badge" class="bg-saffron-50 dark:bg-saffron-900/30 text-saffron-700 dark:text-saffron-400 px-3 py-1.5 rounded-md flex items-center gap-1.5 border border-saffron-100 dark:border-saffron-800/50">
                             <!-- Icon and type injected here -->
                         </span>
-                        <span class="text-slate-300">&bull;</span>
-                        <span id="detail-date" class="text-slate-500 normal-case font-medium"></span>
+                        <span class="text-slate-300 dark:text-slate-600">&bull;</span>
+                        <span id="detail-date" class="text-slate-500 dark:text-slate-400 normal-case font-medium"></span>
                     </div>
-                    <h2 id="detail-title" class="text-3xl md:text-4xl font-bold text-slate-800 mb-8 serif leading-tight"></h2>
-                    <div id="detail-content" class="text-slate-600 text-lg leading-relaxed whitespace-pre-wrap font-serif"></div>
+                    <h2 id="detail-title" class="text-3xl md:text-4xl font-bold text-slate-800 dark:text-slate-100 mb-8 serif leading-tight transition-colors"></h2>
+                    <div id="detail-content" class="text-slate-600 dark:text-slate-300 text-lg leading-relaxed whitespace-pre-wrap font-serif transition-colors"></div>
                 </div>
             </article>
         </div>
@@ -159,6 +175,33 @@
         lucide.createIcons();
         document.getElementById('year').textContent = new Date().getFullYear();
 
+        // Dark Theme Setup & Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleIcon = document.getElementById('theme-toggle-icon');
+
+        // Set initial icon based on applied theme
+        if (document.documentElement.classList.contains('dark')) {
+            themeToggleIcon.setAttribute('data-lucide', 'sun');
+        } else {
+            themeToggleIcon.setAttribute('data-lucide', 'moon');
+        }
+        lucide.createIcons();
+
+        themeToggleBtn.addEventListener('click', function() {
+            // Toggle the dark class
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+                themeToggleIcon.setAttribute('data-lucide', 'moon');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+                themeToggleIcon.setAttribute('data-lucide', 'sun');
+            }
+            // Re-render specifically the icon that changed
+            lucide.createIcons();
+        });
+
         // Global store for all fetched updates to allow seamless routing
         let globalUpdatesData = [];
 
@@ -172,8 +215,8 @@
                 content: "We are thrilled to announce that the global preparations for the upcoming Ashwamedha Yagya are in full swing across the UK and Europe.\n\nVolunteers across all chapters are encouraged to participate in local awareness campaigns. Please contact your local center coordinator for more detailed information and volunteer duty rosters.\n\nLet us make this a spiritually uplifting event for everyone involved.",
                 // Simulates ["/static/img/update-45-1.jpeg", "/static/img/update-45-2.jpeg"]
                 images: [
-                    "/awgp-europe/static/img/awgp.jpeg?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-                    "/awgp-europe/static/img/awgp.jpeg?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                    "https://images.unsplash.com/photo-1599587449553-909d7df9d2c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1604065363114-1e5b15a6b096?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
                 ],
                 url: "#",
                 type: "Local Update",
@@ -310,7 +353,8 @@
             if (updatesGrid.children.length === 0) {
                 globalUpdatesData.slice(0, 6).forEach(update => {
                     const card = document.createElement('div');
-                    card.className = 'bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col group';
+                    // Added dark mode classes for cards
+                    card.className = 'bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col group';
                     
                     const truncatedContent = update.content.length > 150 ? update.content.substring(0, 150) + '...' : update.content;
                     
@@ -325,23 +369,24 @@
                     const coverImage = (update.images && update.images.length > 0) ? update.images[0] : update.image;
                     
                     if (coverImage) {
-                        imageHTML = `<div class="h-48 overflow-hidden"><img src="${coverImage}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Preview"></div>`;
+                        imageHTML = `<div class="h-48 overflow-hidden border-b border-slate-200 dark:border-slate-700"><img src="${coverImage}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Preview"></div>`;
                     }
 
+                    // Added dark mode classes to typography inside cards
                     card.innerHTML = `
                         ${imageHTML}
                         <div class="p-6 flex-grow flex flex-col">
-                            <div class="flex items-center gap-2 text-saffron-600 text-xs font-semibold mb-3 tracking-wide uppercase">
-                                <span class="bg-saffron-50 text-saffron-700 px-2 py-1 rounded flex items-center gap-1 border border-saffron-100">
+                            <div class="flex items-center gap-2 text-saffron-600 dark:text-saffron-500 text-xs font-semibold mb-3 tracking-wide uppercase">
+                                <span class="bg-saffron-50 dark:bg-saffron-900/30 text-saffron-700 dark:text-saffron-400 px-2 py-1 rounded flex items-center gap-1 border border-saffron-100 dark:border-saffron-800/50">
                                     <i data-lucide="${update.icon}" class="w-3 h-3"></i>
                                     ${update.type}
                                 </span>
-                                <span class="text-slate-400">&bull;</span>
-                                <span class="text-slate-500 normal-case">${update.date}</span>
+                                <span class="text-slate-400 dark:text-slate-600">&bull;</span>
+                                <span class="text-slate-500 dark:text-slate-400 normal-case">${update.date}</span>
                             </div>
-                            <h4 class="text-xl font-bold text-slate-800 mb-3 serif leading-snug">${update.title}</h4>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-4 flex-grow">${truncatedContent}</p>
-                            <a href="${linkUrl}" target="${linkTarget}" class="text-saffron-600 font-semibold text-sm hover:text-saffron-700 mt-auto flex items-center gap-1 w-max group-hover:underline">
+                            <h4 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3 serif leading-snug">${update.title}</h4>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4 flex-grow">${truncatedContent}</p>
+                            <a href="${linkUrl}" target="${linkTarget}" class="text-saffron-600 dark:text-saffron-500 font-semibold text-sm hover:text-saffron-700 dark:hover:text-saffron-400 mt-auto flex items-center gap-1 w-max group-hover:underline">
                                 ${linkLabel} 
                                 <i data-lucide="arrow-right" class="w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
                             </a>
@@ -391,12 +436,12 @@
             if (imagesToDisplay.length > 0) {
                 galleryEl.classList.remove('hidden');
                 // Use a grid if multiple images are provided
-                galleryEl.className = `w-full grid ${imagesToDisplay.length > 1 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`;
+                galleryEl.className = `w-full grid ${imagesToDisplay.length > 1 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'} border-b border-slate-200 dark:border-slate-700`;
                 
                 imagesToDisplay.forEach((imgSrc) => {
                     const img = document.createElement('img');
                     img.src = imgSrc;
-                    img.className = 'w-full h-64 md:h-96 object-cover border-r border-b border-white';
+                    img.className = 'w-full h-64 md:h-96 object-cover border-r border-b border-white dark:border-slate-800';
                     img.alt = `Image for ${update.title}`;
                     galleryEl.appendChild(img);
                 });
