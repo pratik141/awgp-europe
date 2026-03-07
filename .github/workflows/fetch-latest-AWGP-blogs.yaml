@@ -1,0 +1,96 @@
+name: Fetch Latest AWGP Blogs
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs automatically every day at midnight UTC
+  workflow_dispatch: # Allows you to manually trigger it from the GitHub Actions tab
+
+jobs:
+  update-blogs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to commit the updated blogs.json back to the repo
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install Scraping Tools
+        run: npm install cheerio
+        
+      - name: Scrape Blogs from AWGP
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const cheerio = require('cheerio');
+            
+            async function fetchBlogs() {
+              try {
+                console.log('Fetching AWGP Blog page...');
+                const response = await fetch('https://www.awgp.org/en/blog/');
+                const html = await response.text();
+                const $ = cheerio.load(html);
+                const blogs = [];
+                
+                // Heuristic to find blog elements on the page
+                // AWGP usually places titles inside heading tags or links
+                $('a').each((i, el) => {
+                  let link = $(el).attr('href');
+                  let text = $(el).text().trim();
+                  
+                  // Filter for links that go to blog posts and have substantial text
+                  if (link && link.includes('/blog/') && text.length > 15) {
+                     if (!link.startsWith('http')) {
+                         link = 'https://www.awgp.org' + link;
+                     }
+                     
+                     // Try to grab surrounding context for the snippet
+                     const parentText = $(el).parent().text().replace(text, '').trim();
+                     const snippet = parentText.length > 10 ? parentText : "Read the full spiritual insight on the official AWGP blog.";
+                     
+                     // Prevent duplicates
+                     if (!blogs.find(b => b.title === text)) {
+                       blogs.push({
+                         id: i.toString(),
+                         title: text,
+                         date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                         content: snippet.substring(0, 150) + (snippet.length > 150 ? '...' : ''),
+                         url: link
+                       });
+                     }
+                  }
+                });
+                
+                // Keep only the 6 most recent unique blogs
+                const recentBlogs = blogs.slice(0, 6);
+                
+                if (recentBlogs.length > 0) {
+                  fs.writeFileSync('blogs.json', JSON.stringify(recentBlogs, null, 2));
+                  console.log(`Successfully saved ${recentBlogs.length} blogs to blogs.json`);
+                } else {
+                  console.log('No blogs found. The AWGP website structure may have changed.');
+                }
+              } catch (e) {
+                console.error('Failed to scrape blogs:', e);
+              }
+            }
+            
+            await fetchBlogs();
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add blogs.json
+          if git diff-index --quiet HEAD; then
+            echo "No new blogs to commit (No changes detected)."
+          else
+            git commit -m "Auto-update latest blogs from AWGP"
+            git push
+          fi
