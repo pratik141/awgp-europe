@@ -106,7 +106,9 @@
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Updates
             </button>
             <article class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <img id="detail-image" class="w-full h-64 md:h-96 object-cover hidden" src="" alt="Update Image">
+                <!-- Dynamic Multi-Image Gallery Container -->
+                <div id="detail-images-gallery" class="w-full hidden"></div>
+                
                 <div class="p-8 md:p-12">
                     <div class="flex items-center gap-3 text-saffron-600 text-sm font-semibold mb-6 tracking-wide uppercase">
                         <span id="detail-type-badge" class="bg-saffron-50 text-saffron-700 px-3 py-1.5 rounded-md flex items-center gap-1.5 border border-saffron-100">
@@ -160,14 +162,19 @@
         // Global store for all fetched updates to allow seamless routing
         let globalUpdatesData = [];
 
-        // Fallback mock data with a simulated Issue ID local update
+        // Fallback mock data simulating how updates.json will look
+        // We use an array of images to match your /static/img/update-45-1.jpeg format
         const previewCache = [
             {
-                id: "105", // Simulated GitHub Issue ID
+                id: "45", // Simulated GitHub Issue ID 45
                 title: "Ashwamedha Yagya Preparations Begin in London",
                 date: "March 8, 2026",
                 content: "We are thrilled to announce that the global preparations for the upcoming Ashwamedha Yagya are in full swing across the UK and Europe.\n\nVolunteers across all chapters are encouraged to participate in local awareness campaigns. Please contact your local center coordinator for more detailed information and volunteer duty rosters.\n\nLet us make this a spiritually uplifting event for everyone involved.",
-                image: "https://images.unsplash.com/photo-1599587449553-909d7df9d2c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                // Simulates ["/static/img/update-45-1.jpeg", "/static/img/update-45-2.jpeg"]
+                images: [
+                    "/static/img/awgp.jpeg?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    "/static/img/awgp.jpeg?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                ],
                 url: "#",
                 type: "Local Update",
                 icon: "map-pin"
@@ -313,10 +320,12 @@
                     const linkTarget = isLocal ? '_self' : '_blank';
                     const linkLabel = isLocal ? 'Read Full Update' : 'Read on AWGP.org';
 
-                    // Optional Image Preview for cards
+                    // Optional Image Preview for cards (Uses the first image if multiple are provided)
                     let imageHTML = '';
-                    if (update.image) {
-                        imageHTML = `<div class="h-48 overflow-hidden"><img src="${update.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Preview"></div>`;
+                    const coverImage = (update.images && update.images.length > 0) ? update.images[0] : update.image;
+                    
+                    if (coverImage) {
+                        imageHTML = `<div class="h-48 overflow-hidden"><img src="${coverImage}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Preview"></div>`;
                     }
 
                     card.innerHTML = `
@@ -359,7 +368,7 @@
             document.getElementById('detail-view').classList.remove('hidden');
             window.scrollTo(0, 0);
 
-            // Populate Data
+            // Populate Text Data
             document.getElementById('detail-title').innerText = update.title;
             document.getElementById('detail-date').innerText = update.date;
             document.getElementById('detail-content').innerText = update.content;
@@ -367,13 +376,32 @@
             const badge = document.getElementById('detail-type-badge');
             badge.innerHTML = `<i data-lucide="${update.icon}" class="w-4 h-4"></i> ${update.type}`;
             
-            const imgEl = document.getElementById('detail-image');
-            if (update.image && update.image.trim() !== '') {
-                imgEl.src = update.image;
-                imgEl.classList.remove('hidden');
+            // Populate Images Gallery
+            const galleryEl = document.getElementById('detail-images-gallery');
+            galleryEl.innerHTML = ''; // Clear previous images
+            
+            // Support both an array of images or a single string for backward compatibility
+            let imagesToDisplay = [];
+            if (update.images && Array.isArray(update.images)) {
+                imagesToDisplay = update.images;
+            } else if (update.image && update.image.trim() !== '') {
+                imagesToDisplay = [update.image];
+            }
+
+            if (imagesToDisplay.length > 0) {
+                galleryEl.classList.remove('hidden');
+                // Use a grid if multiple images are provided
+                galleryEl.className = `w-full grid ${imagesToDisplay.length > 1 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`;
+                
+                imagesToDisplay.forEach((imgSrc) => {
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    img.className = 'w-full h-64 md:h-96 object-cover border-r border-b border-white';
+                    img.alt = `Image for ${update.title}`;
+                    galleryEl.appendChild(img);
+                });
             } else {
-                imgEl.classList.add('hidden');
-                imgEl.src = '';
+                galleryEl.classList.add('hidden');
             }
 
             // Re-render icons since we injected HTML into the badge
