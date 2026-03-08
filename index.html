@@ -47,7 +47,7 @@
     <header class="bg-white dark:bg-slate-800 shadow-md sticky top-0 z-50 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.hash=''">
                     <img src="/awgp-europe/static/img/mashal_logo_of_gayaytri_pariwar_400x400.jpg" alt="AWGP Mashal Logo" class="w-12 h-12 rounded-full object-cover shadow-sm">
                     <div>
                         <h1 class="font-bold text-xl text-saffron-700 dark:text-saffron-500 uppercase tracking-wide">AWGP Europe</h1>
@@ -55,11 +55,11 @@
                     </div>
                 </div>
                 <nav class="hidden md:flex space-x-8">
-                    <a href="https://www.awgpeurope.org/en/" class="text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Home</a>
-                    <a href="https://www.awgpeurope.org/en/about-us" class="text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">About Us</a>
-                    <a href="https://www.awgpeurope.org/en/activities" class="text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Activities</a>
-                    <a href="https://www.awgpeurope.org/en/literature" class="text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Literature</a>
-                    <a href="https://www.awgpeurope.org/en/contact" class="text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Contact</a>
+                    <a href="#" class="nav-link text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Home</a>
+                    <a href="#about" class="nav-link text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">About Us</a>
+                    <a href="#activities" class="nav-link text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Activities</a>
+                    <a href="#literature" class="nav-link text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Literature</a>
+                    <a href="#contact" class="nav-link text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Contact</a>
                 </nav>
                 <div class="flex items-center gap-4">
                     <!-- Dark Mode Toggle Button -->
@@ -78,9 +78,9 @@
     <!-- Main Content Area -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
         
-        <!-- View 1: List View -->
-        <div id="list-view">
-            <!-- Hero Section (Only in list view) -->
+        <!-- View 1: List View (Home) -->
+        <div id="list-view" class="view-section">
+            <!-- Hero Section -->
             <section class="hero-bg text-white py-20 px-6 text-center rounded-3xl overflow-hidden shadow-xl mb-16 relative">
                 <div class="relative z-10 max-w-3xl mx-auto">
                     <h2 class="text-4xl md:text-5xl font-bold mb-6 serif leading-tight">Awakening Divinity in Human Beings</h2>
@@ -115,19 +115,15 @@
         </div>
 
         <!-- View 2: Detailed Single Update View -->
-        <div id="detail-view" class="hidden max-w-4xl mx-auto">
+        <div id="detail-view" class="view-section hidden max-w-4xl mx-auto">
             <button onclick="window.location.hash = ''" class="mb-6 flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition bg-white dark:bg-slate-800 px-4 py-2 rounded-lg shadow-sm w-max border border-slate-200 dark:border-slate-700">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Updates
             </button>
             <article class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden transition-colors duration-300">
-                <!-- Dynamic Multi-Image Gallery Container -->
                 <div id="detail-images-gallery" class="w-full hidden"></div>
-                
                 <div class="p-8 md:p-12">
                     <div class="flex items-center gap-3 text-saffron-600 dark:text-saffron-500 text-sm font-semibold mb-6 tracking-wide uppercase">
-                        <span id="detail-type-badge" class="bg-saffron-50 dark:bg-saffron-900/30 text-saffron-700 dark:text-saffron-400 px-3 py-1.5 rounded-md flex items-center gap-1.5 border border-saffron-100 dark:border-saffron-800/50">
-                            <!-- Icon and type injected here -->
-                        </span>
+                        <span id="detail-type-badge" class="bg-saffron-50 dark:bg-saffron-900/30 text-saffron-700 dark:text-saffron-400 px-3 py-1.5 rounded-md flex items-center gap-1.5 border border-saffron-100 dark:border-saffron-800/50"></span>
                         <span class="text-slate-300 dark:text-slate-600">&bull;</span>
                         <span id="detail-date" class="text-slate-500 dark:text-slate-400 normal-case font-medium"></span>
                     </div>
@@ -136,6 +132,169 @@
                 </div>
             </article>
         </div>
+
+        <!-- View 3: About Us -->
+        <div id="about-view" class="view-section hidden max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-slate-800 dark:text-slate-100 serif mb-4">About AWGP Europe</h2>
+                <div class="w-24 h-1 bg-saffron-500 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Spiritual Gathering" class="rounded-2xl shadow-lg object-cover h-96 w-full">
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-slate-100 serif mb-4">Our Mission</h3>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                        All World Gayatri Pariwar (AWGP) is a socio-spiritual organization founded by Pt. Shriram Sharma Acharya. Our fundamental mission is the "Awakening of Divinity in Human Beings and the Descent of Heavenly Atmosphere on Earth." 
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                        AWGP Europe acts as a central hub for all devotees and seekers located across the European continent. We strive to spread the message of scientific spirituality, cultural upliftment, and holistic well-being through the timeless wisdom of the Gayatri Mantra and Yagya.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8 text-center">
+                <i data-lucide="heart-handshake" class="w-12 h-12 text-saffron-500 mx-auto mb-4"></i>
+                <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">Join the Pariwar</h3>
+                <p class="text-slate-600 dark:text-slate-400">We invite everyone, regardless of caste, creed, or nationality, to join this movement of self-transformation and world peace.</p>
+            </div>
+        </div>
+
+        <!-- View 4: Activities -->
+        <div id="activities-view" class="view-section hidden max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-slate-800 dark:text-slate-100 serif mb-4">Our Core Activities</h2>
+                <div class="w-24 h-1 bg-saffron-500 mx-auto rounded-full"></div>
+                <p class="text-slate-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto">Discover the various initiatives and programs run by AWGP Europe to promote spiritual growth and community welfare.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Activity Card 1 -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 hover:border-saffron-500 transition-colors">
+                    <div class="w-14 h-14 bg-saffron-100 dark:bg-saffron-900/30 text-saffron-600 dark:text-saffron-400 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="flame" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">Gayatri Yagya</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Regular collective Yagyas performed for environmental purification and spiritual elevation. We organize both intimate home Yagyas and large-scale Ashwamedha Yagyas.</p>
+                </div>
+                <!-- Activity Card 2 -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 hover:border-saffron-500 transition-colors">
+                    <div class="w-14 h-14 bg-saffron-100 dark:bg-saffron-900/30 text-saffron-600 dark:text-saffron-400 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="users" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">Sanskar Traditions</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Providing sacramental rites (Sanskars) such as Vidyarambha, Punsavan, and Vivah absolutely free of cost to instill ethical values at every stage of life.</p>
+                </div>
+                <!-- Activity Card 3 -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 hover:border-saffron-500 transition-colors">
+                    <div class="w-14 h-14 bg-saffron-100 dark:bg-saffron-900/30 text-saffron-600 dark:text-saffron-400 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="book-open" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">Bal Sanskar Shala</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Weekend moral education classes for children across Europe. We teach Indian culture, meditation, and life management skills through engaging activities.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- View 5: Literature -->
+        <div id="literature-view" class="view-section hidden max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-slate-800 dark:text-slate-100 serif mb-4">Divine Literature</h2>
+                <div class="w-24 h-1 bg-saffron-500 mx-auto rounded-full"></div>
+                <p class="text-slate-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto">Pt. Shriram Sharma Acharya wrote over 3,200 books on almost all aspects of human life. Explore our rich repository of spiritual literature.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="flex-1 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
+                    <div class="p-8 flex-grow">
+                        <i data-lucide="library" class="w-10 h-10 text-saffron-500 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-3">E-Books & Articles</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-6">Access thousands of digital books covering Scientific Spirituality, Health, Psychology, and Family Management directly from the central repository.</p>
+                    </div>
+                    <div class="px-8 pb-8">
+                        <a href="https://literature.awgp.org/" target="_blank" class="inline-flex items-center gap-2 bg-saffron-600 hover:bg-saffron-700 text-white px-6 py-3 rounded-lg font-semibold transition">
+                            Browse E-Library <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex-1 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
+                    <div class="p-8 flex-grow">
+                        <i data-lucide="book-marked" class="w-10 h-10 text-saffron-500 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-3">Akhand Jyoti Magazine</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-6">The flagship monthly magazine of AWGP. Subscribe to receive monthly doses of spiritual wisdom, contemporary analysis, and inspirational stories.</p>
+                    </div>
+                    <div class="px-8 pb-8">
+                        <a href="https://www.awgp.org/en/read/akhandjyoti" target="_blank" class="inline-flex items-center gap-2 bg-slate-800 dark:bg-slate-700 hover:bg-slate-900 dark:hover:bg-slate-600 text-white px-6 py-3 rounded-lg font-semibold transition">
+                            Read Akhand Jyoti <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View 6: Contact -->
+        <div id="contact-view" class="view-section hidden max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-slate-800 dark:text-slate-100 serif mb-4">Contact Us</h2>
+                <div class="w-24 h-1 bg-saffron-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-4">Get in Touch</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Whether you are looking to join our activities, request a Sanskar, or simply want to learn more, we would love to hear from you.</p>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-saffron-100 dark:bg-saffron-900/30 text-saffron-600 dark:text-saffron-400 rounded-full flex items-center justify-center shrink-0">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 dark:text-slate-100">Regional Chapters</h4>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm">We have centers across the UK, Germany, France, and other European nations. Contact us to find your nearest chapter.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-saffron-100 dark:bg-saffron-900/30 text-saffron-600 dark:text-saffron-400 rounded-full flex items-center justify-center shrink-0">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 dark:text-slate-100">Email</h4>
+                                <a href="mailto:info@awgpeurope.org" class="text-saffron-600 dark:text-saffron-400 text-sm hover:underline">info@awgpeurope.org</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form UI (Visual Only) -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
+                    <form onsubmit="event.preventDefault(); alert('Form submission is a placeholder. Please use our official email.');" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Your Name</label>
+                            <input type="text" class="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-saffron-500 dark:focus:border-saffron-500 transition" placeholder="John Doe" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
+                            <input type="email" class="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-saffron-500 dark:focus:border-saffron-500 transition" placeholder="john@example.com" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Message</label>
+                            <textarea rows="4" class="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-saffron-500 dark:focus:border-saffron-500 transition" placeholder="How can we help you?" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-saffron-600 hover:bg-saffron-700 text-white font-bold py-3 rounded-lg transition shadow-md">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Footer -->
@@ -177,7 +336,6 @@
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeToggleIcon = document.getElementById('theme-toggle-icon');
 
-        // Set initial icon based on applied theme
         if (document.documentElement.classList.contains('dark')) {
             themeToggleIcon.setAttribute('data-lucide', 'sun');
         } else {
@@ -186,7 +344,6 @@
         lucide.createIcons();
 
         themeToggleBtn.addEventListener('click', function() {
-            // Toggle the dark class
             if (document.documentElement.classList.contains('dark')) {
                 document.documentElement.classList.remove('dark');
                 localStorage.setItem('color-theme', 'light');
@@ -196,22 +353,18 @@
                 localStorage.setItem('color-theme', 'dark');
                 themeToggleIcon.setAttribute('data-lucide', 'sun');
             }
-            // Re-render specifically the icon that changed
             lucide.createIcons();
         });
 
         // Global store for all fetched updates to allow seamless routing
         let globalUpdatesData = [];
 
-        // Fallback mock data simulating how updates.json will look
-        // We use an array of images to match your /static/img/update-45-1.jpeg format
         const previewCache = [
             {
-                id: "45", // Simulated GitHub Issue ID 45
+                id: "45",
                 title: "Ashwamedha Yagya Preparations Begin in London",
                 date: "March 8, 2026",
                 content: "We are thrilled to announce that the global preparations for the upcoming Ashwamedha Yagya are in full swing across the UK and Europe.\n\nVolunteers across all chapters are encouraged to participate in local awareness campaigns. Please contact your local center coordinator for more detailed information and volunteer duty rosters.\n\nLet us make this a spiritually uplifting event for everyone involved.",
-                // Simulates ["/static/img/update-45-1.jpeg", "/static/img/update-45-2.jpeg"]
                 images: [
                     "https://images.unsplash.com/photo-1599587449553-909d7df9d2c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
                     "https://images.unsplash.com/photo-1604065363114-1e5b15a6b096?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
@@ -240,14 +393,10 @@
             }
         ];
 
-        // Fetch and render blogs/news directly from both local JSON and the CORS proxy
         async function fetchAllUpdates() {
             const loadingState = document.getElementById('loading-state');
-            const errorState = document.getElementById('error-state');
-            
             let allUpdates = [];
 
-            // 1. Fetch Local Updates (updates.json)
             try {
                 const localUrl = new URL(`updates.json?t=${new Date().getTime()}`, window.location.href);
                 const localResponse = await fetch(localUrl);
@@ -263,10 +412,9 @@
                     allUpdates = allUpdates.concat(formattedLocal);
                 }
             } catch (error) {
-                console.warn("Local updates.json not found (Preview mode). Skipping local updates.", error);
+                console.warn("Local updates.json not found (Preview mode).");
             }
 
-            // 2. Fetch Live Global News via Proxy
             let liveNews = [];
             try {
                 const targetUrl = encodeURIComponent('https://www.awgp.org/en/news');
@@ -307,70 +455,42 @@
                         }
                     }
                 });
-
-                if (liveNews.length === 0) throw new Error("Scraping completed but no specific news structure was found.");
             } catch (error) {
-                console.warn("Live fetch/scrape failed. Falling back to preview cache.", error);
                 liveNews = previewCache; 
             }
 
-            // Merge local and live news (Prioritize local to stay on top)
             globalUpdatesData = allUpdates.concat(liveNews);
-            
-            // If completely empty after both tries
-            if (globalUpdatesData.length === 0) {
-                globalUpdatesData = previewCache; // ultimate fallback
-            }
+            if (globalUpdatesData.length === 0) globalUpdatesData = previewCache; 
 
             loadingState.classList.add('hidden');
             
-            // Trigger routing to decide what view to show
+            // Only render updates grid if we are actually on the home view or going to it
+            if (window.location.hash === '' || window.location.hash === '#' || window.location.hash.startsWith('#update-')) {
+                 renderUpdatesGrid();
+            }
+            
             handleRouting();
         }
 
-        // --- Single Page Application Routing Logic ---
-        function handleRouting() {
-            const hash = window.location.hash;
-            
-            if (hash.startsWith('#update-')) {
-                const id = hash.replace('#update-', '');
-                showDetailView(id);
-            } else {
-                showListView();
-            }
-        }
-
-        function showListView() {
-            document.getElementById('detail-view').classList.add('hidden');
-            document.getElementById('list-view').classList.remove('hidden');
-            
+        function renderUpdatesGrid() {
             const updatesGrid = document.getElementById('updates-grid');
-            updatesGrid.classList.remove('hidden');
-            
-            // Only render cards if not already rendered
             if (updatesGrid.children.length === 0) {
                 globalUpdatesData.slice(0, 6).forEach(update => {
                     const card = document.createElement('div');
-                    // Added dark mode classes for cards
                     card.className = 'bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col group';
                     
                     const truncatedContent = update.content.length > 150 ? update.content.substring(0, 150) + '...' : update.content;
-                    
-                    // Determine Link Target (Local opens internal detail view, Global opens external)
                     const isLocal = update.type === 'Local Update';
                     const linkUrl = isLocal ? `#update-${update.id}` : update.url;
                     const linkTarget = isLocal ? '_self' : '_blank';
                     const linkLabel = isLocal ? 'Read Full Update' : 'Read on AWGP.org';
 
-                    // Optional Image Preview for cards (Uses the first image if multiple are provided)
                     let imageHTML = '';
                     const coverImage = (update.images && update.images.length > 0) ? update.images[0] : update.image;
-                    
                     if (coverImage) {
                         imageHTML = `<div class="h-48 overflow-hidden border-b border-slate-200 dark:border-slate-700"><img src="${coverImage}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Preview"></div>`;
                     }
 
-                    // Added dark mode classes to typography inside cards
                     card.innerHTML = `
                         ${imageHTML}
                         <div class="p-6 flex-grow flex flex-col">
@@ -392,26 +512,66 @@
                     `;
                     updatesGrid.appendChild(card);
                 });
-                lucide.createIcons();
+            }
+            lucide.createIcons();
+        }
+
+        // --- Single Page Application Routing Logic ---
+        function hideAllViews() {
+            const views = document.querySelectorAll('.view-section');
+            views.forEach(view => view.classList.add('hidden'));
+            window.scrollTo(0, 0);
+        }
+
+        function updateNavActiveState(hash) {
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                // Determine base hash matching logic
+                const linkHash = link.getAttribute('href');
+                if (hash === linkHash || (hash === '' && linkHash === '#') || (hash.startsWith('#update-') && linkHash === '#')) {
+                    link.classList.add('text-saffron-600', 'dark:text-saffron-400');
+                    link.classList.remove('text-slate-600', 'dark:text-slate-300');
+                } else {
+                    link.classList.remove('text-saffron-600', 'dark:text-saffron-400');
+                    link.classList.add('text-slate-600', 'dark:text-slate-300');
+                }
+            });
+        }
+
+        function handleRouting() {
+            const hash = window.location.hash;
+            hideAllViews();
+            updateNavActiveState(hash);
+            
+            if (hash.startsWith('#update-')) {
+                const id = hash.replace('#update-', '');
+                showDetailView(id);
+            } else if (hash === '#about') {
+                document.getElementById('about-view').classList.remove('hidden');
+            } else if (hash === '#activities') {
+                document.getElementById('activities-view').classList.remove('hidden');
+            } else if (hash === '#literature') {
+                document.getElementById('literature-view').classList.remove('hidden');
+            } else if (hash === '#contact') {
+                document.getElementById('contact-view').classList.remove('hidden');
+            } else {
+                // Default to home/list view
+                document.getElementById('list-view').classList.remove('hidden');
+                document.getElementById('updates-grid').classList.remove('hidden');
+                renderUpdatesGrid(); // Ensure it's rendered
             }
         }
 
         function showDetailView(id) {
-            // Find the item
             const update = globalUpdatesData.find(u => u.id === id);
             
             if (!update) {
-                // If ID is invalid, route back to home
-                window.location.hash = '';
+                window.location.hash = ''; // Fallback
                 return;
             }
 
-            // Hide list, show detail
-            document.getElementById('list-view').classList.add('hidden');
             document.getElementById('detail-view').classList.remove('hidden');
-            window.scrollTo(0, 0);
 
-            // Populate Text Data
             document.getElementById('detail-title').innerText = update.title;
             document.getElementById('detail-date').innerText = update.date;
             document.getElementById('detail-content').innerText = update.content;
@@ -419,11 +579,9 @@
             const badge = document.getElementById('detail-type-badge');
             badge.innerHTML = `<i data-lucide="${update.icon}" class="w-4 h-4"></i> ${update.type}`;
             
-            // Populate Images Gallery
             const galleryEl = document.getElementById('detail-images-gallery');
-            galleryEl.innerHTML = ''; // Clear previous images
+            galleryEl.innerHTML = ''; 
             
-            // Support both an array of images or a single string for backward compatibility
             let imagesToDisplay = [];
             if (update.images && Array.isArray(update.images)) {
                 imagesToDisplay = update.images;
@@ -433,7 +591,6 @@
 
             if (imagesToDisplay.length > 0) {
                 galleryEl.classList.remove('hidden');
-                // Use a grid if multiple images are provided
                 galleryEl.className = `w-full grid ${imagesToDisplay.length > 1 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'} border-b border-slate-200 dark:border-slate-700`;
                 
                 imagesToDisplay.forEach((imgSrc) => {
@@ -446,15 +603,10 @@
             } else {
                 galleryEl.classList.add('hidden');
             }
-
-            // Re-render icons since we injected HTML into the badge
             lucide.createIcons();
         }
 
-        // Listen for browser back/forward buttons (hash changes)
         window.addEventListener('hashchange', handleRouting);
-
-        // Start initialization on load
         window.addEventListener('DOMContentLoaded', fetchAllUpdates);
     </script>
 </body>
