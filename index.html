@@ -415,6 +415,25 @@
                 console.warn("Local updates.json not found (Preview mode).");
             }
 
+            // 1.5 Fetch Automated Blogs (blogs.json)
+            try {
+                const blogsUrl = new URL(`blogs.json?t=${new Date().getTime()}`, window.location.href);
+                const blogsResponse = await fetch(blogsUrl);
+                
+                if (blogsResponse.ok) {
+                    const blogsData = await blogsResponse.json();
+                    const formattedBlogs = blogsData.map(item => ({
+                        ...item,
+                        type: 'Blog Post',
+                        icon: 'book-open',
+                        url: item.url || '#' 
+                    }));
+                    allUpdates = allUpdates.concat(formattedBlogs);
+                }
+            } catch (error) {
+                console.warn("Local blogs.json not found. Skipping automated blogs.");
+            }
+
             let liveNews = [];
             try {
                 const targetUrl = encodeURIComponent('https://www.awgp.org/en/news');
