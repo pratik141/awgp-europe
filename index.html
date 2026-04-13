@@ -203,21 +203,21 @@
             </div>
         </div>
 
-        <!-- View 4: Activities (Social Feed) -->
+        <!-- View 4: Activities (Catalog Feed) -->
         <div id="activities-view" class="view-section hidden max-w-6xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-slate-800 dark:text-slate-100 serif mb-4">Recent Activities</h2>
+                <h2 class="text-4xl font-bold text-slate-800 dark:text-slate-100 serif mb-4">Activities Catalog</h2>
                 <div class="w-24 h-1 bg-saffron-500 mx-auto rounded-full"></div>
-                <p class="text-slate-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto">Catch up with our latest events and community actions from Instagram and Facebook.</p>
+                <p class="text-slate-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto">Browse our complete catalog of upcoming events, workshops, and spiritual retreats across Europe.</p>
             </div>
 
-            <div id="social-loading-state" class="text-center py-12 text-slate-500 dark:text-slate-400">
+            <div id="activities-loading-state" class="text-center py-12 text-slate-500 dark:text-slate-400">
                 <i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto mb-4 text-saffron-500"></i>
-                <p>Loading recent social activities...</p>
+                <p>Loading activities catalog...</p>
             </div>
 
-            <div id="social-activities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
-                <!-- Social Updates will be injected here by JavaScript -->
+            <div id="activities-catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
+                <!-- Catalog items will be injected here by JavaScript -->
             </div>
         </div>
 
@@ -417,31 +417,31 @@
             }
         ];
 
-        // Fallback mock data for Social Activities
-        const previewSocialCache = [
+        // Fallback mock data for Activities Catalog
+        const previewActivitiesCache = [
             {
-                id: "soc-1",
-                platform: "instagram",
-                date: "April 10, 2026",
-                content: "Beautiful evening Yagya at our London center. Thanks to everyone who joined us in chanting the Gayatri Mantra! 🙏 #AWGPEurope #GayatriYagya",
+                id: "cat-1",
+                title: "European Youth Retreat 2026",
+                date: "May 15 - May 18, 2026",
+                content: "A 3-day immersive spiritual retreat focusing on meditation, yoga, and character building for youth aged 16-30.",
                 image: "https://images.unsplash.com/photo-1599587449553-909d7df9d2c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                url: "https://www.instagram.com/europeawgp/"
+                url: "https://www.awgpeurope.org/events"
             },
             {
-                id: "soc-2",
-                platform: "facebook",
-                date: "April 8, 2026",
-                content: "Successful Bal Sanskar Shala session today. The kids learned about the importance of daily meditation and ethical living. 🧘‍♀️🧘‍♂️",
+                id: "cat-2",
+                title: "Bal Sanskar Teacher Training",
+                date: "June 05, 2026",
+                content: "An intensive online workshop for volunteers who wish to become certified teachers for our weekend Bal Sanskar Shala classes.",
                 image: "https://images.unsplash.com/photo-1604065363114-1e5b15a6b096?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                url: "https://www.facebook.com/"
+                url: "https://www.awgpeurope.org/training"
             },
             {
-                id: "soc-3",
-                platform: "instagram",
-                date: "April 5, 2026",
-                content: "Our volunteers helped clean the local park this weekend as part of our 'Cleanliness is Godliness' environmental initiative. 🌿 #CommunityService",
+                id: "cat-3",
+                title: "Mass Tree Planting Drive",
+                date: "April 22, 2026",
+                content: "Join us on Earth Day as we plant 1,000 trees simultaneously across 5 European cities to promote environmental protection.",
                 image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                url: "https://www.instagram.com/europeawgp/"
+                url: "https://www.awgpeurope.org/environment"
             }
         ];
 
@@ -449,6 +449,7 @@
             const loadingState = document.getElementById('loading-state');
             let allUpdates = [];
 
+            // 1. Fetch Local Updates (updates.json)
             try {
                 const localUrl = new URL(`updates.json?t=${new Date().getTime()}`, window.location.href);
                 const localResponse = await fetch(localUrl);
@@ -467,7 +468,7 @@
                 console.warn("Local updates.json not found (Preview mode).");
             }
 
-            // 1.5 Fetch Automated Blogs (blogs.json)
+            // 2. Fetch Automated Blogs (blogs.json)
             try {
                 const blogsUrl = new URL(`blogs.json?t=${new Date().getTime()}`, window.location.href);
                 const blogsResponse = await fetch(blogsUrl);
@@ -486,52 +487,33 @@
                 console.warn("Local blogs.json not found. Skipping automated blogs.");
             }
 
+            // 3. Fetch Automated Global News (news.json)
             let liveNews = [];
             try {
-                const targetUrl = encodeURIComponent('https://www.awgp.org/en/news');
-                const proxyUrl = `https://api.allorigins.win/get?url=${targetUrl}`;
+                const newsUrl = new URL(`news.json?t=${new Date().getTime()}`, window.location.href);
+                const newsResponse = await fetch(newsUrl);
                 
-                const response = await fetch(proxyUrl);
-                if (!response.ok) throw new Error('Proxy network response failed');
-                
-                const data = await response.json();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data.contents, 'text/html');
-                const items = doc.querySelectorAll('a');
-                let count = 0;
-
-                items.forEach((item, index) => {
-                    const text = item.innerText.trim();
-                    if (text.length > 50 && count < 6 && !item.closest('nav') && !item.closest('footer')) {
-                        const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-                        if(lines.length >= 2) {
-                            let dateStr = "Recent";
-                            const dateRegex = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2}, \d{4}/i;
-                            const match = text.match(dateRegex);
-                            if (match) dateStr = match[0];
-                            else if (lines.length > 2) dateStr = lines[lines.length - 1]; 
-
-                            if (!liveNews.find(n => n.title.includes(lines[0].substring(0, 30)))) {
-                                liveNews.push({
-                                    id: 'live-' + index,
-                                    title: lines[0].substring(0, 60) + (lines[0].length > 60 ? '...' : ''),
-                                    date: dateStr,
-                                    content: lines[1],
-                                    url: item.href.startsWith('http') ? item.href : `https://www.awgp.org${item.getAttribute('href')}`,
-                                    type: 'Global News',
-                                    icon: 'globe'
-                                });
-                                count++;
-                            }
-                        }
-                    }
-                });
+                if (newsResponse.ok) {
+                    const newsData = await newsResponse.json();
+                    liveNews = newsData.map(item => ({
+                        ...item,
+                        type: 'Global News',
+                        icon: 'globe',
+                        url: item.url || '#' 
+                    }));
+                } else {
+                    throw new Error('news.json not found');
+                }
             } catch (error) {
-                liveNews = previewCache; 
+                console.warn("news.json not found. Falling back to preview cache for global news.");
+                liveNews = previewCache.filter(item => item.type === 'Global News'); 
             }
 
             globalUpdatesData = allUpdates.concat(liveNews);
-            if (globalUpdatesData.length === 0) globalUpdatesData = previewCache; 
+            if (globalUpdatesData.length === 0) {
+                // Ultimate fallback if absolutely nothing loads
+                globalUpdatesData = previewCache; 
+            }
 
             loadingState.classList.add('hidden');
             
@@ -540,28 +522,45 @@
                  renderUpdatesGrid();
             }
             
-            // Fetch the social activities for the new Activities page
-            fetchSocialActivities();
+            // Fetch the catalog activities for the new Activities page
+            fetchActivitiesCatalog();
             
             handleRouting();
         }
 
-        async function fetchSocialActivities() {
-            const loadingState = document.getElementById('social-loading-state');
-            const grid = document.getElementById('social-activities-grid');
+        async function fetchActivitiesCatalog() {
+            const loadingState = document.getElementById('activities-loading-state');
+            const grid = document.getElementById('activities-catalog-grid');
             let activitiesData = [];
 
             try {
-                // Fetch from your new JSON file
-                const response = await fetch(`social-activities.json?t=${new Date().getTime()}`);
-                if (response.ok) {
-                    activitiesData = await response.json();
-                } else {
-                    throw new Error("Local JSON not found");
+                // 1. Fetch the master activities.json
+                const response = await fetch(`activities.json?t=${new Date().getTime()}`);
+                if (!response.ok) throw new Error("Local JSON not found");
+                
+                const data = await response.json();
+                
+                // Smart Fetcher: If the JSON is an array of strings (URLs), fetch each URL individually
+                if (Array.isArray(data) && data.length > 0 && typeof data[0] === 'string') {
+                    const fetchPromises = data.map(url => fetch(url).then(res => res.json()).catch(err => null));
+                    const results = await Promise.all(fetchPromises);
+                    // Filter out any failed fetches
+                    activitiesData = results.filter(res => res !== null);
+                } 
+                // Smart Fetcher: If the JSON is an array of objects containing a 'jsonUrl' property
+                else if (Array.isArray(data) && data.length > 0 && data[0].jsonUrl) {
+                    const fetchPromises = data.map(item => fetch(item.jsonUrl).then(res => res.json()).catch(err => null));
+                    const results = await Promise.all(fetchPromises);
+                    activitiesData = results.filter(res => res !== null);
+                } 
+                // Default: The JSON already contains the full catalog objects
+                else {
+                    activitiesData = data;
                 }
+                
             } catch (error) {
-                console.warn("social-activities.json not found, using preview cache.");
-                activitiesData = previewSocialCache;
+                console.warn("activities.json not found or failed, using preview catalog cache.", error);
+                activitiesData = previewActivitiesCache;
             }
 
             loadingState.classList.add('hidden');
@@ -574,33 +573,35 @@
 
             // Only render if grid is empty to avoid duplicates
             if (grid.children.length === 0) {
-                activitiesData.forEach(post => {
+                activitiesData.forEach(item => {
                     const card = document.createElement('div');
                     card.className = 'bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col group';
                     
-                    const iconName = post.platform === 'instagram' ? 'instagram' : 'facebook';
-                    const iconColorClass = post.platform === 'instagram' ? 'text-pink-600 dark:text-pink-400' : 'text-blue-600 dark:text-blue-400';
-                    
                     let imageHTML = '';
-                    if(post.image) {
-                        imageHTML = `<div class="h-48 overflow-hidden border-b border-slate-200 dark:border-slate-700"><img src="${post.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Activity"></div>`;
+                    if(item.image) {
+                        imageHTML = `<div class="h-48 overflow-hidden border-b border-slate-200 dark:border-slate-700 relative">
+                            <img src="${item.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Activity">
+                            <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                        </div>`;
                     }
+
+                    const title = item.title || 'Untitled Activity';
+                    const dateStr = item.date || 'Upcoming';
+                    const content = item.content || item.description || 'No description provided.';
+                    const url = item.url || '#';
 
                     card.innerHTML = `
                         ${imageHTML}
                         <div class="p-6 flex-grow flex flex-col">
-                            <div class="flex items-center gap-2 text-xs font-semibold mb-3 tracking-wide uppercase">
-                                <span class="flex items-center gap-1 ${iconColorClass}">
-                                    <i data-lucide="${iconName}" class="w-4 h-4"></i>
-                                    ${post.platform}
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="bg-saffron-50 dark:bg-saffron-900/30 text-saffron-700 dark:text-saffron-400 px-3 py-1 rounded text-xs font-bold tracking-wide uppercase border border-saffron-100 dark:border-saffron-800/50 flex items-center gap-1.5">
+                                    <i data-lucide="calendar" class="w-3.5 h-3.5"></i> ${dateStr}
                                 </span>
-                                <span class="text-slate-400 dark:text-slate-600">&bull;</span>
-                                <span class="text-slate-500 dark:text-slate-400 normal-case">${post.date}</span>
                             </div>
-                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4 flex-grow">${post.content}</p>
-                            <a href="${post.url}" target="_blank" class="text-saffron-600 dark:text-saffron-500 font-semibold text-sm hover:text-saffron-700 dark:hover:text-saffron-400 mt-auto flex items-center gap-1 w-max group-hover:underline">
-                                View on ${post.platform.charAt(0).toUpperCase() + post.platform.slice(1)} 
-                                <i data-lucide="external-link" class="w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
+                            <h4 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3 serif leading-snug">${title}</h4>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6 flex-grow">${content}</p>
+                            <a href="${url}" target="_blank" class="w-full text-center bg-slate-100 dark:bg-slate-700 hover:bg-saffron-600 dark:hover:bg-saffron-500 hover:text-white dark:hover:text-white text-slate-800 dark:text-slate-100 font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                View Details <i data-lucide="external-link" class="w-4 h-4"></i>
                             </a>
                         </div>
                     `;
