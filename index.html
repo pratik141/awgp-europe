@@ -51,6 +51,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.hash=''">
+                    <!-- Online SVG replacement for the local Mashal image -->
                     <img src="/static/img/mashal_logo_of_gayaytri_pariwar_400x400.jpg" alt="AWGP Mashal Logo" class="w-12 h-12 rounded-full object-cover shadow-sm">
                     <div>
                         <h1 class="font-bold text-xl text-saffron-700 dark:text-saffron-500 uppercase tracking-wide">AWGP Europe</h1>
@@ -60,6 +61,7 @@
                 <nav class="hidden md:flex space-x-8">
                     <a href="#" class="nav-link text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Home</a>
                     <a href="#about" class="nav-link text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">About Us</a>
+                    <a href="#initiatives" class="nav-link text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Our Initiatives</a>
                     <a href="#activities" class="nav-link text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Activities</a>
                     <a href="#literature" class="nav-link text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Literature</a>
                     <a href="#contact" class="nav-link text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Contact</a>
@@ -165,10 +167,10 @@
             </div>
         </div>
 
-        <!-- View 4: Activities -->
-        <div id="activities-view" class="view-section hidden max-w-6xl mx-auto">
+        <!-- View 3.5: Initiatives (Formerly Activities) -->
+        <div id="initiatives-view" class="view-section hidden max-w-6xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-slate-800 dark:text-slate-100 serif mb-4">Our Core Activities</h2>
+                <h2 class="text-4xl font-bold text-slate-800 dark:text-slate-100 serif mb-4">Our Initiatives</h2>
                 <div class="w-24 h-1 bg-saffron-500 mx-auto rounded-full"></div>
                 <p class="text-slate-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto">Discover the various initiatives and programs run by AWGP Europe to promote spiritual growth and community welfare.</p>
             </div>
@@ -198,6 +200,24 @@
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">Bal Sanskar Shala</h3>
                     <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Weekend moral education classes for children across Europe. We teach Indian culture, meditation, and life management skills through engaging activities.</p>
                 </div>
+            </div>
+        </div>
+
+        <!-- View 4: Activities (Social Feed) -->
+        <div id="activities-view" class="view-section hidden max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-slate-800 dark:text-slate-100 serif mb-4">Recent Activities</h2>
+                <div class="w-24 h-1 bg-saffron-500 mx-auto rounded-full"></div>
+                <p class="text-slate-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto">Catch up with our latest events and community actions from Instagram and Facebook.</p>
+            </div>
+
+            <div id="social-loading-state" class="text-center py-12 text-slate-500 dark:text-slate-400">
+                <i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto mb-4 text-saffron-500"></i>
+                <p>Loading recent social activities...</p>
+            </div>
+
+            <div id="social-activities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
+                <!-- Social Updates will be injected here by JavaScript -->
             </div>
         </div>
 
@@ -277,7 +297,7 @@
 
                 <!-- Contact Form via Google Forms -->
                 <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfpp-bqdwChSOTG-Kq2QnoQy0SqbQz4nCti0Q-x_o6eVfl2Xg/viewform?embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0" class="w-full bg-white">Loading…</iframe>
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfpp-bqdwChSOTG-Kq2QnoQy0SqbQz4nCti0Q-x_o6eVfl2Xg/viewform?embedded=true" width="100%" height="400" frameborder="0" marginheight="0" marginwidth="0" class="w-full bg-white">Loading…</iframe>
                 </div>
             </div>
         </div>
@@ -289,7 +309,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
                 <div class="flex items-center gap-3 mb-4">
-                     <img src="/static/img/mashal_logo_of_gayaytri_pariwar_400x400.jpg" alt="AWGP Mashal Logo" class="w-12 h-12 rounded-full object-cover shadow-sm">
+                    <!-- SVG logo at the bottom -->
+                    <img src="/static/img/mashal_logo_of_gayaytri_pariwar_400x400.jpg" alt="AWGP Mashal Logo" class="w-12 h-12 rounded-full object-cover shadow-sm">
                     <h4 class="text-white text-lg font-bold uppercase tracking-wider m-0">AWGP Europe</h4>
                 </div>
                 <p class="text-sm leading-relaxed">All World Gayatri Pariwar is a socio-spiritual organization founded by Pt. Shriram Sharma Acharya, dedicated to the upliftment of human consciousness.</p>
@@ -396,6 +417,34 @@
             }
         ];
 
+        // Fallback mock data for Social Activities
+        const previewSocialCache = [
+            {
+                id: "soc-1",
+                platform: "instagram",
+                date: "April 10, 2026",
+                content: "Beautiful evening Yagya at our London center. Thanks to everyone who joined us in chanting the Gayatri Mantra! 🙏 #AWGPEurope #GayatriYagya",
+                image: "https://images.unsplash.com/photo-1599587449553-909d7df9d2c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                url: "https://www.instagram.com/europeawgp/"
+            },
+            {
+                id: "soc-2",
+                platform: "facebook",
+                date: "April 8, 2026",
+                content: "Successful Bal Sanskar Shala session today. The kids learned about the importance of daily meditation and ethical living. 🧘‍♀️🧘‍♂️",
+                image: "https://images.unsplash.com/photo-1604065363114-1e5b15a6b096?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                url: "https://www.facebook.com/"
+            },
+            {
+                id: "soc-3",
+                platform: "instagram",
+                date: "April 5, 2026",
+                content: "Our volunteers helped clean the local park this weekend as part of our 'Cleanliness is Godliness' environmental initiative. 🌿 #CommunityService",
+                image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                url: "https://www.instagram.com/europeawgp/"
+            }
+        ];
+
         async function fetchAllUpdates() {
             const loadingState = document.getElementById('loading-state');
             let allUpdates = [];
@@ -491,7 +540,74 @@
                  renderUpdatesGrid();
             }
             
+            // Fetch the social activities for the new Activities page
+            fetchSocialActivities();
+            
             handleRouting();
+        }
+
+        async function fetchSocialActivities() {
+            const loadingState = document.getElementById('social-loading-state');
+            const grid = document.getElementById('social-activities-grid');
+            let activitiesData = [];
+
+            try {
+                // Fetch from your new JSON file
+                const response = await fetch(`social-activities.json?t=${new Date().getTime()}`);
+                if (response.ok) {
+                    activitiesData = await response.json();
+                } else {
+                    throw new Error("Local JSON not found");
+                }
+            } catch (error) {
+                console.warn("social-activities.json not found, using preview cache.");
+                activitiesData = previewSocialCache;
+            }
+
+            loadingState.classList.add('hidden');
+            grid.classList.remove('hidden');
+
+            if(activitiesData.length === 0) {
+                 grid.innerHTML = '<p class="col-span-full text-center text-slate-500">No recent activities found.</p>';
+                 return;
+            }
+
+            // Only render if grid is empty to avoid duplicates
+            if (grid.children.length === 0) {
+                activitiesData.forEach(post => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col group';
+                    
+                    const iconName = post.platform === 'instagram' ? 'instagram' : 'facebook';
+                    const iconColorClass = post.platform === 'instagram' ? 'text-pink-600 dark:text-pink-400' : 'text-blue-600 dark:text-blue-400';
+                    
+                    let imageHTML = '';
+                    if(post.image) {
+                        imageHTML = `<div class="h-48 overflow-hidden border-b border-slate-200 dark:border-slate-700"><img src="${post.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Activity"></div>`;
+                    }
+
+                    card.innerHTML = `
+                        ${imageHTML}
+                        <div class="p-6 flex-grow flex flex-col">
+                            <div class="flex items-center gap-2 text-xs font-semibold mb-3 tracking-wide uppercase">
+                                <span class="flex items-center gap-1 ${iconColorClass}">
+                                    <i data-lucide="${iconName}" class="w-4 h-4"></i>
+                                    ${post.platform}
+                                </span>
+                                <span class="text-slate-400 dark:text-slate-600">&bull;</span>
+                                <span class="text-slate-500 dark:text-slate-400 normal-case">${post.date}</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4 flex-grow">${post.content}</p>
+                            <a href="${post.url}" target="_blank" class="text-saffron-600 dark:text-saffron-500 font-semibold text-sm hover:text-saffron-700 dark:hover:text-saffron-400 mt-auto flex items-center gap-1 w-max group-hover:underline">
+                                View on ${post.platform.charAt(0).toUpperCase() + post.platform.slice(1)} 
+                                <i data-lucide="external-link" class="w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+                lucide.createIcons();
+            }
         }
 
         function renderUpdatesGrid() {
@@ -570,6 +686,8 @@
                 showDetailView(id);
             } else if (hash === '#about') {
                 document.getElementById('about-view').classList.remove('hidden');
+            } else if (hash === '#initiatives') {
+                document.getElementById('initiatives-view').classList.remove('hidden');
             } else if (hash === '#activities') {
                 document.getElementById('activities-view').classList.remove('hidden');
             } else if (hash === '#literature') {
