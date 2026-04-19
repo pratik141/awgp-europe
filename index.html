@@ -67,10 +67,6 @@
                     <a href="#contact" class="nav-link text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 font-semibold transition">Contact</a>
                 </nav>
                 <div class="flex items-center gap-4">
-                    <!-- Dark Mode Toggle Button -->
-                    <button id="theme-toggle" class="text-slate-500 dark:text-slate-400 hover:text-saffron-600 dark:hover:text-saffron-400 focus:outline-none rounded-lg p-2 transition">
-                        <i id="theme-toggle-icon" data-lucide="moon" class="w-6 h-6"></i>
-                    </button>
                     <!-- Mobile Menu Button -->
                     <button class="md:hidden text-slate-600 dark:text-slate-300 focus:outline-none">
                         <i data-lucide="menu" class="w-6 h-6"></i>
@@ -350,6 +346,11 @@
             &copy; <span id="year"></span> All World Gayatri Pariwar Europe. This is a community-maintained site.
         </div>
     </footer>
+
+    <!-- Floating Dark Mode Toggle Button -->
+    <button id="theme-toggle" class="fixed bottom-6 right-6 z-50 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-saffron-600 dark:hover:text-saffron-400 p-3 rounded-full shadow-xl border border-slate-200 dark:border-slate-700 hover:scale-110 transition-all duration-300 focus:outline-none" aria-label="Toggle Dark Mode">
+        <i id="theme-toggle-icon" data-lucide="moon" class="w-6 h-6"></i>
+    </button>
 
     <script>
         // Initialize Icons
